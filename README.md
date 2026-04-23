@@ -42,17 +42,17 @@ source venv/bin/activate
 
 ### 3. Install dependencies
 ```bash
-pip install pymupdf rank-bm25 transformers tokenizers torch google-generativeai sentence-transformers pandas jupyter
+pip install pymupdf rank-bm25 transformers tokenizers torch openai sentence-transformers pandas jupyter
 ```
 
-### 4. Set Gemini API key
+### 4. Set Grok API key
 ```bash
 # Windows:
-set GEMINI_API_KEY=your_api_key_here
+set GROK_API_KEY=your_api_key_here
 # macOS/Linux:
-export GEMINI_API_KEY=your_api_key_here
+export GROK_API_KEY=your_api_key_here
 ```
-> Get your free Gemini API key at: https://makersuite.google.com/app/apikey
+> Get your free Grok API key at: https://console.x.ai
 
 ### 5. Download NCERT PDF corpus
 Download from the NCERT primary source above and place in `Book/` directory:
@@ -119,7 +119,7 @@ Run all cells from top to bottom. The notebook will:
 - **PyMuPDF** — PDF extraction
 - **transformers + tokenizers** — Tokenizer comparison, flan-t5-small, RoBERTa
 - **rank_bm25** — Lexical retrieval
-- **google-generativeai** — Gemini 1.5 Flash (generation)
+- **openai** — xAI Grok API client (generation via `grok-3-fast`)
 - **sentence-transformers** — Dense retrieval (Advanced)
 - **pandas** — Evaluation logging
 
