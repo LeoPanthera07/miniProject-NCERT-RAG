@@ -4,12 +4,12 @@
 This project implements a **retrieval-ready grounded question-answering assistant** for **NCERT Class 9 Science**, designed to support students when tutors are unavailable (PariShiksha edtech scenario).
 
 The assistant:
-1. Extracts NCERT Science chapters from PDF
+1. Extracts the **entire NCERT Class 9 Science textbook** (all 15 chapters) from PDF
 2. Classifies content into concepts, examples, and questions
 3. Compares tokenizers (GPT-2 BPE, BERT WordPiece, T5 SentencePiece)
 4. Chunks content with overlap and semantic boundary awareness
 5. Indexes chunks using BM25 lexical retrieval
-6. Generates grounded answers via Gemini API
+6. Generates grounded answers via **Groq API** (LLaMA-3.3-70b-versatile)
 7. Refuses out-of-scope questions
 8. Evaluates on 18 questions (direct, paraphrased, out-of-scope)
 
@@ -17,8 +17,8 @@ The assistant:
 
 ## Corpus
 - **Primary source:** https://ncert.nic.in/textbook.php?iesc1=0-11  
-  Chapter files are named `iesc1XX.pdf` (e.g., `iesc108.pdf` for Chapter 8).
-- **Local backup used:** `Book/Chapter-8-Journey-inside-the-atoms.pdf` + `Book/class 9 science.pdf`
+  Full textbook PDF contains all 15 chapters.
+- **Local file used:** `Book/class 9 science.pdf` — **entire textbook extracted** (all chapters)
 - **Note:** PDF files are NOT committed to this repo per NCERT terms of use.
 
 ---
@@ -42,24 +42,23 @@ source venv/bin/activate
 
 ### 3. Install dependencies
 ```bash
-pip install pymupdf rank-bm25 transformers tokenizers torch openai sentence-transformers pandas jupyter
+pip install pymupdf rank-bm25 transformers tokenizers torch groq sentence-transformers pandas jupyter
 ```
 
-### 4. Set Grok API key
+### 4. Set Groq API key
 ```bash
 # Windows:
-set GROK_API_KEY=your_api_key_here
+set GROQ_API_KEY=your_api_key_here
 # macOS/Linux:
-export GROK_API_KEY=your_api_key_here
+export GROQ_API_KEY=your_api_key_here
 ```
-> Get your free Grok API key at: https://console.x.ai
+> Get your free Groq API key at: https://console.groq.com/keys
 
 ### 5. Download NCERT PDF corpus
-Download from the NCERT primary source above and place in `Book/` directory:
+Download the full textbook from the NCERT primary source above and place in `Book/`:
 ```
 Book/
-├── Chapter-8-Journey-inside-the-atoms.pdf
-└── class 9 science.pdf
+└── class 9 science.pdf    ← full NCERT Class 9 Science (all 15 chapters)
 ```
 
 ### 6. Run the notebook
@@ -119,7 +118,7 @@ Run all cells from top to bottom. The notebook will:
 - **PyMuPDF** — PDF extraction
 - **transformers + tokenizers** — Tokenizer comparison, flan-t5-small, RoBERTa
 - **rank_bm25** — Lexical retrieval
-- **openai** — xAI Grok API client (generation via `grok-3-fast`)
+- **groq** — Groq API client (LLaMA-3.3-70b-versatile, generation)
 - **sentence-transformers** — Dense retrieval (Advanced)
 - **pandas** — Evaluation logging
 
