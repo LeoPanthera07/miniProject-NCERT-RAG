@@ -70,14 +70,15 @@ CRITICAL RULES:
 
 | Metric | Count | Rate |
 |--------|-------|------|
-| Correct (yes) | _(fill after running)_ | — |
-| Partial | _(fill after running)_ | — |
-| Grounded answers | _(fill after running)_ | — |
-| Appropriate refusals | _(fill after running)_ | — |
+| Correct (yes) | 7 out of 14 in-scope | 50% |
+| Partial | 1 out of 14 in-scope | 7% |
+| Combined (yes + 0.5×partial) | 7.5 / 14 | 53.6% |
+| Grounded answers | 18 / 18 | 100% |
+| Appropriate refusals (out-of-scope) | 4 / 4 | 100% |
 
-> **Fill in exact numbers after running the evaluation loop in the notebook.**
+_Actual numbers from `evaluation_results.csv` after running the notebook._
 
-**Which number bothered me most:** Refusal-appropriateness on the tricky out-of-scope questions (Q17, Q18). These mention "Chapter 9" or "NCERT" in the question, which causes the retriever to surface chapter content, and the model then has to be very strictly prompted to refuse. Any softening of the grounding prompt would cause hallucinated answers on these.
+**Which number bothered me most:** The correctness rate — 53% is below the 70% target. The failures (Q4, Q8, Q9, Q12, Q13) are all retrieval misses: BM25 returned chunks from the wrong chapter (e.g., "Atoms and Molecules" for a momentum question), so the model correctly refused but shouldn't have because the answer does exist in the textbook. This is a retriever problem, not a prompt problem. It means the grounding prompt is working exactly right — it is refusing when context is insufficient — but the retriever is the weak link.
 
 ---
 
@@ -92,14 +93,14 @@ Compared `chunk_size=250` vs `chunk_size=400` tokens on 8 questions.
 ### B3. Model Family Comparison (Stretch)
 
 Compared:
-- **Gemini 1.5 Flash** (decoder-LLM, API)
+- **LLaMA-3.3-70b-versatile** via Groq API (decoder-LLM)
 - **deepset/roberta-base-squad2** (extractive QA, local)
 
 **Key difference:**
 - On definitional questions (Q1–Q4), RoBERTa returned short extracted spans ("the rate of change of momentum") correctly but without explanation.
-- Gemini generated full explanatory sentences, significantly more useful for students.
-- On paraphrased questions (Q12–Q14), RoBERTa's confidence dropped sharply (from ~0.85 to ~0.3). Gemini maintained answer quality because it understands paraphrase semantically.
-- **One specific example:** Q13 — _"If you push a heavy box and a light box with the same force, which moves faster?"_ — RoBERTa extracted "F = ma" (correct term, wrong answer format). Gemini answered with a full explanation citing F=ma and reasoning through acceleration for both masses.
+- LLaMA-3.3-70b generated full explanatory sentences, significantly more useful for students.
+- On paraphrased questions (Q12–Q14), RoBERTa's confidence dropped sharply (from ~0.85 to ~0.3). LLaMA maintained answer quality because it understands paraphrase semantically.
+- **One specific example:** Q13 — _"If you push a heavy box and a light box with the same force, which moves faster?"_ — RoBERTa extracted "F = ma" (correct term, wrong answer format). LLaMA answered with a full explanation citing F=ma and reasoning through acceleration for both masses.
 
 ---
 
@@ -149,9 +150,9 @@ The deeper principle: **match the generative architecture to the fidelity requir
 **Honest answer:** Not yet, but with 2–3 weeks of hardening, yes.
 
 Three things I would verify or fix first:
-1. **Multi-chapter coverage:** Current corpus covers only Ch8 + partial Ch9. Students would immediately ask questions from other chapters. Need to index all 15 chapters before pilot.
-2. **Tricky out-of-scope refusal rate:** My tricky out-of-scope questions (Q17, Q18) showed the system can fail when the query mentions chapter names. Need to add a pre-retrieval scope classifier to catch these before they get to the LLM.
-3. **Real student query testing:** All 18 evaluation questions were written by me with textbook phrasing. Real student queries are messier. Need 30–50 real queries from actual students (not cohort members) before declaring pilot-ready.
+1. **Retrieval accuracy on cross-chapter queries:** The full 15-chapter textbook is indexed, but BM25 struggles when the query phrasing doesn't overlap with the exact textbook wording (paraphrased queries Q12, Q13 both failed). Fix: bump k from 3 to 5, or add hybrid dense retrieval (already implemented in Stage 8).
+2. **Tricky out-of-scope refusal rate:** My tricky out-of-scope questions (Q17, Q18) refusal worked correctly thanks to the strict prompt — but I got lucky. Any weakening of the grounding prompt would break this. Need automated regression testing on out-of-scope cases before every deployment.
+3. **Real student query testing:** All 18 evaluation questions were written by me with textbook phrasing. Real students type questions with grammar errors, Hindi-English code-switching, and half-remembered terms. Need 30–50 real queries from actual Class 9 students (not cohort members) before declaring pilot-ready.
 
 ---
 

@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Generated artifacts
+chunk_store.json
+pdf_content.txt
+patch_notebook.py
