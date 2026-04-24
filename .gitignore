@@ -210,3 +210,17 @@ __marimo__/
 chunk_store.json
 pdf_content.txt
 patch_notebook.py
+
+# Runtime-generated files
+chunk_store.json
+pdf_content.txt
+
+# Temporary patch/debug scripts
+fix_*.py
+find_*.py
+dump_*.py
+test_*.py
+patch_*.py
+rebuild_*.py
+cell_*.txt
+final_validation.py
