@@ -1,19 +1,25 @@
 id,category,question,correctness,grounded,refusal_appropriate,is_refusal,top_bm25_score,top_chunk_chapter,top_chunk_type,answer,notes
-1,direct,State Newton's second law of motion.,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-2,direct,What is Newton's first law of motion?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-3,direct,Define inertia and give an example.,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-4,direct,What is momentum?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-5,direct,State the law of conservation of momentum.,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-6,direct,What is an atom? How does Dalton's atomic theory describe it?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-7,direct,What is atomic mass? What are atomic mass units?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-8,direct,What is the law of conservation of mass?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-9,direct,What is the difference between atoms and molecules?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-10,direct,What is Newton's third law of motion?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-11,direct,Define balanced and unbalanced forces.,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-12,paraphrased,A ball is rolling on the ground. Why does it eventually stop even if no one pushes it?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-13,paraphrased,If you push a heavy box and a light box with the same force which one moves faster? Why?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-14,paraphrased,What is the smallest building block of a substance that still keeps its chemical identity?,PENDING,PENDING,N/A,False,0.0,,,PENDING,
-15,out-of-scope,Who is the current Prime Minister of India?,N/A,N/A,PENDING,False,0.0,,,PENDING,
-16,out-of-scope,Explain the theory of relativity and time dilation.,N/A,N/A,PENDING,False,0.0,,,PENDING,
-17,out-of-scope-tricky,What is quantum entanglement as described in NCERT Class 9 Chapter 9?,N/A,N/A,PENDING,False,0.0,,,PENDING,
-18,out-of-scope-tricky,How does nuclear fission work in NCERT motion chapter?,N/A,N/A,PENDING,False,0.0,,,PENDING,
+1,direct,State Newton's second law of motion.,yes,true,N/A,False,20.6303,Motion,concept,The second law of motion: The rate of change of momentum of an object is proportional to the applied unbalanced force in the direction of the force.,
+2,direct,What is Newton's first law of motion?,yes,true,N/A,False,21.0223,Motion,concept,"Newton's first law of motion is stated as: An object remains in a state of rest or of uniform motion in a straight line unless compelled to change that state by an applied force. In other words, all objects resist a change in their state of motion. It is also known as the law of inertia.",
+3,direct,Define inertia and give an example.,yes,true,N/A,False,13.4305,Motion,concept,"Inertia is the natural tendency of an object to resist a change in its state of motion or of rest. The mass of an object is a measure of its inertia. 
+
+An example of inertia is when a five-rupee coin is placed on a stiff card covering an empty glass tumbler. When the card is given a sharp horizontal flick with a finger, the card shoots away, but the coin falls vertically into the glass tumbler due to its inertia, trying to maintain its state of rest.",
+4,direct,What is momentum? Write its formula.,no,true,N/A,True,14.9594,Atoms and Molecules,concept,"I cannot find the answer to this in the NCERT textbook content provided. 
+
+Additionally, the question is outside the scope of Class 9 Science as per the provided context, which only discusses atoms and molecules. Momentum is a concept typically covered in the topic of motion, which is not present in the given context.",
+5,direct,State the law of conservation of momentum.,yes,true,N/A,False,24.9463,Motion,concept,"In an isolated system (where there is no external force), the total momentum remains conserved.",
+6,direct,What is an atom according to Dalton's atomic theory?,yes,true,N/A,False,28.8094,Atoms and Molecules,concept,"According to Dalton's atomic theory, an atom is a tiny, indivisible particle that cannot be created or destroyed in a chemical reaction. Atoms of a given element are identical in mass and chemical properties, while atoms of different elements have different masses and chemical properties.",
+7,direct,What is atomic mass and what is 1 amu?,yes,true,N/A,False,20.5419,Structure of the Atom,concept,"According to the context, atomic mass is a characteristic mass of an element, as proposed by Dalton's atomic theory. The atomic mass unit (amu), now written as 'u' (unified mass), is defined as equal to the mass of one carbon atom. However, it is mentioned that if we define the atomic mass unit as equal to the mass of one carbon atom, then we would assign carbon an atomic mass of 1.0 u and oxygen an atomic mass of 1.33 u, but it is more convenient to have these numbers as shown in Table 3.1, where the atomic mass of carbon is 12 u. 
+
+So, 1 amu or 1 u is equal to one-twelfth the mass of a carbon atom, which is 12 u.",
+8,direct,State the law of conservation of mass.,no,true,N/A,True,20.9978,Motion,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+9,direct,What is photosynthesis? Write the word equation.,no,true,N/A,True,12.9915,The Fundamental Unit of Life,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+10,direct,What is universal law of gravitation?,yes,true,N/A,False,19.0694,Gravitation,concept,The universal law of gravitation states that the force of attraction between any two objects is proportional to the product of their masses and inversely proportional to the square of the distance between them. The law applies to objects anywhere in the universe.,
+11,direct,Define work in science and write its SI unit.,yes,true,N/A,False,16.6861,Work and Energy,concept,"In science, work is defined as the product of the force and displacement. It is given by the equation: Work done = force × displacement, W = F s. The SI unit of work is joule (J). 1 J is the energy required to do 1 joule of work.",
+12,paraphrased,A ball rolling on the ground eventually stops. Why? Which law explains this?,no,true,N/A,True,26.9868,Work and Energy,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+13,paraphrased,"If you push a heavy and a light object with equal force, which speeds up more?",no,true,N/A,True,26.2448,Gravitation,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+14,paraphrased,What is the smallest particle of an element that retains its chemical properties?,partial,true,N/A,False,36.3317,Atoms and Molecules,concept,An atom is the smallest particle of the element that cannot usually exist independently and retain all its chemical properties.,
+15,out-of-scope,Who is the current Prime Minister of India?,N/A,N/A,appropriate,True,15.7098,Natural Resources,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+16,out-of-scope,Explain Einstein's theory of special relativity and time dilation.,N/A,N/A,appropriate,True,17.5571,Matter in Our Surroundings,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+17,out-of-scope-tricky,Explain quantum entanglement as described in NCERT Class 9 Chapter 9.,N/A,N/A,appropriate,True,14.0333,Frontmatter,concept,I cannot find the answer to this in the NCERT textbook content provided.,
+18,out-of-scope-tricky,How does nuclear fission work in the NCERT motion chapter?,N/A,N/A,appropriate,True,16.2196,Matter in Our Surroundings,concept,I cannot find the answer to this in the NCERT textbook content provided.,
