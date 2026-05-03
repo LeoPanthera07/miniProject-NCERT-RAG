@@ -1,0 +1,112 @@
+[
+  {
+    "query": "State Newton's second law of motion.",
+    "bm25_chunk_id": "4bdb05e2-8db",
+    "bm25_score": 16.2345,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "Newton’s laws of motion. The first law of An object remains in a state of rest or of uniform motion in a straight line u",
+    "dense_chunk_id": "5b67eecd-1e4",
+    "dense_score": 0.7595,
+    "dense_chapter": "Force And Laws Of Motion",
+    "dense_top1_text_snippet": "Two objects of masses 100 g and 200 g are moving along the same line and direction with velocities of 2 m s–1 and 1 m s–"
+  },
+  {
+    "query": "What is Newton's first law of motion?",
+    "bm25_chunk_id": "4bdb05e2-8db",
+    "bm25_score": 12.5482,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "Newton’s laws of motion. The first law of An object remains in a state of rest or of uniform motion in a straight line u",
+    "dense_chunk_id": "4bdb05e2-8db",
+    "dense_score": 0.7849,
+    "dense_chapter": "Science",
+    "dense_top1_text_snippet": "Newton’s laws of motion. The first law of An object remains in a state of rest or of uniform motion in a straight line u"
+  },
+  {
+    "query": "Define inertia and give an example.",
+    "bm25_chunk_id": "2be4a72d-257",
+    "bm25_score": 11.2147,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "five-rupees coin if we use a one-rupee coin, we find that a lesser force is required to perform the activity. A force th",
+    "dense_chunk_id": "2be4a72d-257",
+    "dense_score": 0.7567,
+    "dense_chapter": "Science",
+    "dense_top1_text_snippet": "five-rupees coin if we use a one-rupee coin, we find that a lesser force is required to perform the activity. A force th"
+  },
+  {
+    "query": "What is momentum? Write its formula.",
+    "bm25_chunk_id": "6cf76585-2a8",
+    "bm25_score": 10.1822,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "3. Formula of carbon tetrachloride For magnesium chloride, we write the symbol of cation (Mg2+) first followed by the sy",
+    "dense_chunk_id": "0eb67c7a-074",
+    "dense_score": 0.7367,
+    "dense_chapter": "Science",
+    "dense_top1_text_snippet": "As a result of this ideal collision experiment, we say that the sum of momenta of the two objects before collision is eq"
+  },
+  {
+    "query": "State the law of conservation of momentum.",
+    "bm25_chunk_id": "0eb67c7a-074",
+    "bm25_score": 18.7845,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "As a result of this ideal collision experiment, we say that the sum of momenta of the two objects before collision is eq",
+    "dense_chunk_id": "0eb67c7a-074",
+    "dense_score": 0.8028,
+    "dense_chapter": "Science",
+    "dense_top1_text_snippet": "As a result of this ideal collision experiment, we say that the sum of momenta of the two objects before collision is eq"
+  },
+  {
+    "query": "What is an atom according to Dalton's atomic theory?",
+    "bm25_chunk_id": "555f2fd8-14f",
+    "bm25_score": 16.4168,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "chlorine, Cl, (ii) zinc, Zn etc. Other symbols have been taken from the names of elements in Latin, German or Greek. For",
+    "dense_chunk_id": "f286cfc9-fc2",
+    "dense_score": 0.8142,
+    "dense_chapter": "Science",
+    "dense_top1_text_snippet": "Greeks and said that the smallest particles of matter are atoms. His theory was based on the laws of chemical combinatio"
+  },
+  {
+    "query": "What is atomic mass and what is 1 amu?",
+    "bm25_chunk_id": "19f03513-62d",
+    "bm25_score": 18.7331,
+    "bm25_chapter": "Atoms And Molecules",
+    "bm25_top1_text_snippet": "The mass of 1 mole of a substance is equal to its relative atomic or molecular mass in grams. The atomic mass of an elem",
+    "dense_chunk_id": "19f03513-62d",
+    "dense_score": 0.7964,
+    "dense_chapter": "Atoms And Molecules",
+    "dense_top1_text_snippet": "The mass of 1 mole of a substance is equal to its relative atomic or molecular mass in grams. The atomic mass of an elem"
+  },
+  {
+    "query": "State the law of conservation of mass.",
+    "bm25_chunk_id": "a15d7348-893",
+    "bm25_score": 20.6128,
+    "bm25_chapter": "Atoms And Molecules",
+    "bm25_top1_text_snippet": "During a chemical reaction, the sum of the masses of the reactants and  products remains unchanged. This is known as the",
+    "dense_chunk_id": "4c61b2bb-833",
+    "dense_score": 0.7442,
+    "dense_chapter": "Force And Laws Of Motion",
+    "dense_top1_text_snippet": "The SI unit of force is kg m s–2. This is also known as newton and represented by the symbol N. A force of one newton pr"
+  },
+  {
+    "query": "What is the universal law of gravitation?",
+    "bm25_chunk_id": "8891abe1-c41",
+    "bm25_score": 22.0248,
+    "bm25_chapter": "Science",
+    "bm25_top1_text_snippet": "What happens to the force between two objects, if (i) the mass of one object is doubled? (ii) the distance between the o",
+    "dense_chunk_id": "c8f9d397-f86",
+    "dense_score": 0.8235,
+    "dense_chapter": "Gravitation",
+    "dense_top1_text_snippet": "The law of gravitation states that the force of attraction between any two objects is proportional to the product of the"
+  },
+  {
+    "query": "Define work in science and write its SI unit.",
+    "bm25_chunk_id": "80b6fe9c-b03",
+    "bm25_score": 14.6401,
+    "bm25_chapter": "Ork And",
+    "bm25_top1_text_snippet": "load?  The way we understand the term ‘work’ You climb up the steps of a staircase and reach the second floor of a build",
+    "dense_chunk_id": "cb2ad8ae-67e",
+    "dense_score": 0.7158,
+    "dense_chapter": "Work And Energy",
+    "dense_top1_text_snippet": "activities, ask the following questions (i) What is the work being done on? (ii) What is happening to the object? (iii) "
+  }
+]
