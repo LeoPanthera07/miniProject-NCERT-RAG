@@ -224,3 +224,16 @@ patch_*.py
 rebuild_*.py
 cell_*.txt
 final_validation.py
+
+# Secrets
+.env
+
+# Generated data files (large, reproducible)
+v2/wk10_chunks.json
+v2/.chroma_wk10/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

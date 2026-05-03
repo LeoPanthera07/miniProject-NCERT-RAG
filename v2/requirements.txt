@@ -1,0 +1,25 @@
+# Core RAG + LangChain
+langchain==0.3.*
+langchain-community==0.3.*
+langchain-groq==0.1.*
+chromadb==0.5.*
+
+# PDF parsing
+opendataloader-pdf
+langchain-opendataloader-pdf
+pymupdf
+
+# Tokenization + embeddings
+tiktoken
+sentence-transformers
+transformers
+torch
+
+# Retrieval
+rank-bm25
+
+# Utilities
+pandas
+python-dotenv
+huggingface_hub
+requests
