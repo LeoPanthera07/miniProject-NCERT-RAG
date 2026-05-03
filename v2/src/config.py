@@ -13,7 +13,7 @@ if not GROQ_API_KEY:
     raise RuntimeError("GROQ_API_KEY not set. Add it to v2/.env")
 
 # ── LLM (Groq, free-tier) ─────────────────────────────────────────────────────
-GROQ_MODEL = "llama-3.1-70b-versatile"   # swap to llama-3.3-70b-versatile if available on your key
+GROQ_MODEL = "llama-3.3-70b-versatile"   # swap to llama-3.3-70b-versatile if available on your key
 
 # ── Embeddings (local OSS, no API cost) ───────────────────────────────────────
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"  # ~33MB, runs fine on CPU
