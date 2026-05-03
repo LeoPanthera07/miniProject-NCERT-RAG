@@ -33,12 +33,35 @@ _QUESTION_PATTERNS = [
 ]
 
 def detect_content_type(text: str) -> str:
-    first_line = text.strip().split("\n")[0].lower().strip()
-    for pat in _EXAMPLE_PATTERNS:
-        if re.match(pat, first_line, re.IGNORECASE):
+    """
+    Detect content type from the first 2 lines.
+    NCERT uses 'Example X.Y', 'Activity X.Y', 'EXERCISES', 'QUESTIONS' etc.
+    """
+    first_two = " ".join(text.strip().split("\n")[:2]).lower().strip()
+
+    example_patterns = [
+        r"example\s*\d",
+        r"activity\s*\d",
+        r"worked\s+example",
+        r"sample\s+problem",
+        r"solved\s+example",
+        r"illustration\s*\d",
+        r"let\s+us\s+take\s+an\s+example",
+    ]
+    question_patterns = [
+        r"^exercises?[\s\d\.\:]",
+        r"^questions?[\s\d\.\:]",
+        r"^in\s+text\s+question",
+        r"^additional\s+exercise",
+        r"^think\s+and\s+discuss",
+        r"^\d+\.\s+[a-z].*\?",     # numbered questions ending with ?
+    ]
+
+    for pat in example_patterns:
+        if re.search(pat, first_two, re.IGNORECASE):
             return "example"
-    for pat in _QUESTION_PATTERNS:
-        if re.match(pat, first_line, re.IGNORECASE):
+    for pat in question_patterns:
+        if re.search(pat, first_two, re.IGNORECASE):
             return "question"
     return "concept"
 
@@ -49,10 +72,22 @@ _CHAPTER_PATTERN = re.compile(
 )
 
 def extract_chapter_name(text: str, fallback: str = "Unknown") -> str:
-    """Best-effort chapter name from the first matching heading line."""
-    for line in text.split("\n"):
+    """
+    Best-effort chapter name from page text.
+    NCERT uses patterns like:
+      'CHAPTER 3', 'Chapter 3', '3. ATOMS AND MOLECULES'
+    """
+    lines = text.split("\n")
+    for line in lines:
         line = line.strip()
-        if _CHAPTER_PATTERN.match(line) and len(line) < 80:
+        # Match "CHAPTER 3" or "Chapter 3" style
+        if re.match(r"^chapter\s+\d+", line, re.IGNORECASE) and len(line) < 80:
+            return line.title()
+        # Match "3. ATOMS AND MOLECULES" style (chapter title as numbered heading)
+        if re.match(r"^\d+\.\s+[A-Z][A-Z\s]{5,}", line) and len(line) < 80:
+            return line.title()
+        # Match all-caps short lines that are likely chapter titles
+        if re.match(r"^[A-Z][A-Z\s\-]{4,40}$", line) and len(line) < 60:
             return line.title()
     return fallback
 
@@ -94,13 +129,19 @@ def chunk_pages(pages: List[Dict]) -> List[Dict]:
             content_type = detect_content_type(block)
 
             # Example blocks: flush buffer first, then keep the whole block intact
-            if content_type == "example":
+            # Example/activity blocks: only keep whole if they're substantial
+            if content_type == "example" and block_tokens > 20:
                 if buffer:
                     chunks.append(_make_chunk(
                         " ".join(buffer), current_chapter,
                         content_type="concept", page=page_num, source=source
                     ))
                     buffer, buffer_tokens = _apply_overlap(buffer)
+                chunks.append(_make_chunk(
+                    block, current_chapter,
+                    content_type="example", page=page_num, source=source
+                ))
+                continue
 
                 # Keep example whole (allow up to 2× limit)
                 chunks.append(_make_chunk(
@@ -134,15 +175,60 @@ def chunk_pages(pages: List[Dict]) -> List[Dict]:
 
 
 def _split_into_blocks(text: str) -> List[str]:
-    """Split text on double newlines (paragraph breaks), clean each block."""
+    """
+    Split text into logical blocks.
+    Handles both double-newline (paragraph) and single-newline PDFs.
+    Also splits on sentence boundaries when blocks are still too large.
+    """
+    # First try double-newline paragraph splits
     raw_blocks = re.split(r"\n{2,}", text)
+
+    # If that gave us only 1-2 large blocks, fall back to single-newline splits
+    if len(raw_blocks) <= 2:
+        raw_blocks = re.split(r"\n", text)
+
     blocks = []
     for b in raw_blocks:
-        b = b.strip().replace("\n", " ")
-        # Skip very short blocks (page numbers, headers, footers)
-        if len(b) > 30:
+        b = b.strip()
+        if len(b) < 30:          # skip page numbers, headers, footers
+            continue
+
+        # If a block is still too large (> 1.5× CHUNK_SIZE_TOKENS),
+        # split further on sentence boundaries (. ? !)
+        if count_tokens(b) > CHUNK_SIZE_TOKENS * 1.5:
+            sentence_chunks = _split_on_sentences(b)
+            blocks.extend(sentence_chunks)
+        else:
             blocks.append(b)
+
     return blocks
+
+
+def _split_on_sentences(text: str) -> List[str]:
+    """
+    Split a large block into sentence groups, each under CHUNK_SIZE_TOKENS.
+    Groups sentences greedily until the token limit is reached.
+    """
+    # Split on sentence-ending punctuation followed by space + capital letter
+    sentences = re.split(r'(?<=[.?!])\s+(?=[A-Z])', text)
+
+    groups = []
+    current = []
+    current_tokens = 0
+
+    for sent in sentences:
+        t = count_tokens(sent)
+        if current_tokens + t > CHUNK_SIZE_TOKENS and current:
+            groups.append(" ".join(current))
+            current = []
+            current_tokens = 0
+        current.append(sent)
+        current_tokens += t
+
+    if current:
+        groups.append(" ".join(current))
+
+    return groups
 
 
 def _apply_overlap(buffer: List[str]) -> tuple:
