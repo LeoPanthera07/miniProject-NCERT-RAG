@@ -119,6 +119,55 @@ class DenseRetriever:
             })
         return chunks_out
 
+# ── Hybrid Retriever (BM25 + Dense via RRF fusion) ────────────────────────────
+class HybridRetriever:
+    """
+    Reciprocal Rank Fusion (RRF) over BM25 + Dense results.
+    RRF score = 1/(k + rank_bm25) + 1/(k + rank_dense)
+    k=60 is standard; higher k smooths rank differences.
+
+    Why RRF and not weighted scores?
+    BM25 scores (0-30+) and cosine similarity (0-1) are on different scales.
+    RRF uses only rank positions, so no normalisation needed.
+    """
+    RRF_K = 60
+
+    def __init__(self, bm25: BM25Retriever, dense: DenseRetriever):
+        self.bm25 = bm25
+        self.dense = dense
+        print("[Hybrid] RRF retriever ready (BM25 + Dense)")
+
+    def retrieve(self, query: str, k: int = TOP_K) -> List[Dict]:
+        # Get top 2k from each retriever to ensure enough candidates for fusion
+        fetch_k = min(k * 2, 20)
+        bm25_results = self.bm25.retrieve(query, k=fetch_k)
+        dense_results = self.dense.retrieve(query, k=fetch_k)
+
+        # Build RRF score map keyed on chunk_id
+        rrf_scores = {}
+        chunk_map = {}   # chunk_id → chunk dict
+
+        for rank, chunk in enumerate(bm25_results):
+            cid = chunk["chunk_id"]
+            rrf_scores[cid] = rrf_scores.get(cid, 0) + 1 / (self.RRF_K + rank + 1)
+            chunk_map[cid] = chunk
+
+        for rank, chunk in enumerate(dense_results):
+            cid = chunk["chunk_id"]
+            rrf_scores[cid] = rrf_scores.get(cid, 0) + 1 / (self.RRF_K + rank + 1)
+            chunk_map[cid] = chunk
+
+        # Sort by RRF score descending
+        ranked = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)[:k]
+
+        results = []
+        for cid, rrf_score in ranked:
+            chunk = chunk_map[cid].copy()
+            chunk["score"] = round(rrf_score, 6)
+            chunk["retriever"] = "hybrid_rrf"
+            results.append(chunk)
+
+        return results
 
 # ── Quick comparison test ─────────────────────────────────────────────────────
 if __name__ == "__main__":
